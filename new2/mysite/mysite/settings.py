@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-CUSTOM_APPS = ['part1', 'crispy_forms', 'ckeditor', 'register']
+CUSTOM_APPS = ['part1', 'crispy_forms', 'ckeditor', 'register', 'search_plus_account', 'cart', 'order']
 
 INSTALLED_APPS += CUSTOM_APPS
 

@@ -11,75 +11,14 @@
 
   <title>{%block title%}Главная страница{%endblock title%}</title>
 
-  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-AAALEwAACxMBAJqcGAAAAitJREFUWIXl18tvTVEUx/EPWo+BElIGDLwTQTXUa+ofIFGREBMR8SdI
-JZgZiIiJASMhMWLWmBh4REg0YUK1RESEqFci1KPlGuzT5qpz9jm7t0ZWspKbu9dvfX/7nnXP2Yf/
-PSY1oG1CS/b5E4YbtxOP6diFi3iKn6hlOYwnuICdWe2Egrvwrg5YlgM4hGmNwjcKu60KHpv9WD9e
-+C58bwA+kt/QmQrv9Oc1LsunOICrBevD2F4VvgaDCfB7mJlpb0fqPmNlGXwK7ifAa1ibaTfhVwWz
-k2MG9ifCX2S6DXhZUbO3Hjj2RtSHFRGD/egWBmsr2vAYX3At+74D29Bc0OMhVuctbC5xftTfP99S
-LM7p1YbXkV7r8gwciwjOF+ymKOaJz1JXnqg7IliSaOBGpFcNV/JEjwqKnyXCO0rgNTwYKa6/pi3y
-41WigUUVamblGSh6nM5INPC8Qs1QnoG3BcXLpJ0beoQ7YixGWfUGeguKW9CeYAB24FZkfZRVbyAm
-2J1o4A0ORtZzWfOFOcib2o+YnWjiXEGvH5hbJLpcIKrhbAK8Q/FmLsWE7eLngD05mrEDOkd4ZuTp
-h7CqzP3piIEhHBeG7AzeZzu9LhxI9gkPpyL9iTI44SDZE2ky3ryLqVUMEAaybwLhvWitCh+JVvEj
-VtW8KTL1ZdGEI/g6DvAgDgvHvIZjIU6p9nIygJNYUKVx6rths3By2oLlwl8OPgh/vTvCsP3z98QJ
-i9/Mb3eFH5SN3QAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  {% include 'part1/head.html' %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel='stylesheet' href='{% static "css/bootstrap-material-design.min.css" %}'>
   <link rel='stylesheet' href='{% static "css/shop-homepage.css" %}'>
-   <link href="http://allfont.ru/allfont.css?fonts=a_bosanova" rel="stylesheet" type="text/css">
+  <link rel='stylesheet' href='{% static "css/ss.css" %}'>
+  <link href="http://allfont.ru/allfont.css?fonts=a_bosanova" rel="stylesheet" type="text/css">
 
-  <style>
-      h4 {
-        font-family: 'a_BosaNova', arial;
-        font-size: 48px;
-        text-shadow: 4px 4px 4px #aaa;
-      }
-      body
-      {
-    background-color: hsla(200, 50%, 10%, 0);
-      }
-     .fig {
-    text-align: center;
-   }
-
-.input-wrapper {
-  width: 600px;
-  margin: 2px auto;
-  position: relative;
-}
-
-.input-wrapper::after {
-  content: attr(data-text);
-  font-size: 1.5rem;
-  line-height: 0;
-  height: 0;
-  max-width: 100%;
-  font-family: Roboto, Arial, sans-serif;
-  border-bottom: 3px solid #FF8000;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  overflow: hidden;
-  user-select: none;
-  color: transparent;
-}
-
-input {
-  color: #ddd;
-  border: none;
-  padding: 0;
-  border-radius: 0;
-  outline: none;
-  width: auto;
-  min-width: 100%;
-  font-size: 13pt;
-  line-height: 3em;
-  font-family: Roboto, Arial, sans-serif;
-  border-bottom: 3px solid #333333;
-  background-color: transparent;
-}
-    </style>
 </head>
 <body>
 
@@ -229,13 +168,7 @@ input {
     {% endblock content%}
   </div>
 
-  <footer class="py-9 bg-dark" style="margin-bottom:0;width:100%;left:0;bottom:0;">
-    <form method="GET" action="{% url 'search_view' %}">
-      <div class="input-wrapper" data-text="">
-        <input type="text" placeholder="Я ищу..." name="q">
-      </div>
-    </form>
-  </footer>
+  {% include 'part1/footer.html' %}
 
     <script src='{% static "js/bootstrap-material-design.min.js" %}'></script>
     <script src='{% static "js/jquery.min.js" %}'></script>

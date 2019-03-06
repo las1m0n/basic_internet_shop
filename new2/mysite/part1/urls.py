@@ -26,19 +26,5 @@ urlpatterns = [
     path('category/sort_by_price/<category_slug>/', views.price_sort, name="price_sort"),
     path('category/sort_by_characteristics/<category_slug>/', views.characteristics_sort, name="characteristics_sort"),
     path('category/sort_by_brand/<category_slug>/', views.brand_sort, name="brand_sort"),
-    path('product/<product_slug>/', views.product_view, name="product_view"),
-    path('add_to_cart/', views.add_to_cart_view, name='add_to_cart'),
-    path('remove_from_cart/', views.remove_from_cart_view, name='remove_from_cart'),
-    path('remove_all_cart/', views.remove_all_from_cart_view, name='remove_all_cart'),
-    path('cart/', views.cart_view, name='cart'),
-    path('change_item_qty/', views.change_item_qty, name='change_item_qty'),
-    path('order/', views.order_create_view, name='create_order'),
-    path('checkout/', views.checkout_view, name='checkout'),
-    path('thank_you/', TemplateView.as_view(template_name='part1/thank_you.html'), name='thank_you'),
-    path('make_order/', views.make_order_view, name='make_order'),
-    path('search/', views.search_view,name='search_view'),
-    path('account/', views.account_view, name='account'),
-    path('favourite/<id>/', views.favourite_product, name='favourite_product'),
-    path('compare/<id>/', views.compare_product, name='compare_product'),
-    path('favourites/', views.favourite_list_view, name='favourites')
+    path('product/<product_slug>/', views.product_view, name="product_view")
 ]
