@@ -1,0 +1,36 @@
+{% extends 'part1/index.html' %}
+{% load static %}
+
+{% block content %}
+{% if founded.count == 0  and founded_cat.count == 0%}
+<center><a href="/"><h2 style="margin-top:65px;">Ничего не найдено</h2></a></center>
+{% else %}
+<div class="row" style="margin-top:50px;">
+    <div class="col">
+        <h2>Результаты по товарам: {{founded.count}}</h2>
+        {% for item in founded %}
+        <div class="row" style="margin-top:25px;">
+            <div class="col col-lg-2">
+                <a href="{{ item.get_absolute_url }}"><img src="{{item.image.url}}" style="width:80%;"></a>
+            </div>
+            <div class="col">
+                <h3><a href='{{item.get_absolute_url}}'>{{ item.title }}</a></h3>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+    <div class="col">
+        <h2>Результаты по категориям: {{founded_cat.count}}</h2>
+        {% for item in founded_cat %}
+            <h3><a href='{{item.get_absolute_url}}'>{{ item.name }}</a></h3>
+        {% endfor %}
+    </div>
+</div>
+    {% endif %}
+
+
+{% endblock content %}

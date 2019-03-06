@@ -1,0 +1,23 @@
+{% extends 'part1/index.html' %}
+{% load static %}
+
+{% block content %}
+<h3 class="text-center" style="margin-top:25px;">Список желаемого</h3>
+<hr>
+<table class='table'>
+<tr style='background:lightblue;'>
+	<td class='text-center'>Фото</td>
+	<td class='text-center'>Название товара</td>
+    <td class='text-center'>Описание товара</td>
+	<td></td>
+</tr>
+{% for fav in favourite_list %}
+<tr>
+    <td class='text-center' style='padding-top: 20px;'><a href="{{ fav.get_absolute_url }}"><img src="{{fav.image.url}}" style="width:70%;"></a></td>
+    <td class='text-center' style='padding-top: 60px; padding-bottom: 20px;'>{{ fav.title }}</td>
+    <td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{% lorem %}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock content %}

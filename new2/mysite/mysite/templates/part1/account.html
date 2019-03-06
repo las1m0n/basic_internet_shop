@@ -1,0 +1,116 @@
+{% extends 'part1/index.html' %}
+{% load static %}
+
+{% block content%}
+
+<title>
+{%block title%}
+Личный кабинет
+{% endblock title %}
+</title>
+
+<h3 class="text-center" style="margin-top:25px;">Личный кабинет пользователя {{ request.user }}</h3>
+<hr>
+<h3 class='text-center'>Ваши заказы</h3>
+<hr>
+{% if order.all.count != 0 %}
+<table class='table'>
+<tr style='background:lightblue;'>
+	<td class='text-center'>Номер заказа</td>
+	<td class='text-center'>Дата заказа</td>
+	<td class='text-center'>Статус заказа</td>
+	<td class='text-center'>Стоимость заказа</td>
+	<td class='text-center'>Детали заказа</td>
+	<td></td>
+</tr>
+{% for item in order %}
+<tr>
+	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{{ item.id }}</td>
+	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{{ item.date }}</td>
+	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{{ item.status }}</td>
+	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{{ item.total }} грн.</td>
+	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal-{{ item.id }}">
+  Детали заказа
+</button></td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<h5 class="text-center">Заказов не найдено.</h5>
+{% endif %}
+
+<hr>
+<h3 class="text-center" style="margin-top:25px;">Сравнение товаров</h3>
+<hr>
+
+{% for category in dups %}
+<h3>{{category}}</h3>
+<table class='table'>
+<tr style='background:lightblue;'>
+	<td class='text-center'>Категория</td>
+	<td class='text-center' style="padding-left:50px;">Фото</td>
+	<td class='text-center'>Товар</td>
+	<td class='text-center'>Описание</td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+	{% for fav in compare_list %}
+		{% if category == fav.category %}
+<tr>
+	<td class='text-center' style='padding-top: 60px; padding-bottom: 20px;'>{{ fav.category }}</td>
+    <td class='text-center' style='padding-bottom: 20px;'><a href="{{ fav.get_absolute_url }}"><img src="{{fav.image.url}}" style="width:15%;"></a></td>
+    <td class='text-center' style='padding-top: 60px; padding-bottom: 20px;'>{{ fav.title }}</td>
+    <td class='text-center' style='padding-top: 60px; padding-bottom: 20px;'>{{ fav.description }}</td>
+</tr>
+		{% endif %}
+	{% endfor %}
+</table>
+{% empty %}
+<h5 class="text-center">Нет предметов для сравнения</h5>
+{% endfor %}
+
+
+
+{% for item in order %}
+<div class="modal fade" id="myModal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+	  <h3 class="modal-title" id="myModalLabel">Заказ № {{ item.id }}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+      <h3>Товар</h3>
+        <table class='table'>
+        	{% for ord_itm in item.items.items.all %}
+					<tr>
+						<td>{{ ord_itm.product.title }}</td>
+						<td>{{ ord_itm.qty }} шт.</td>
+						<td>{{ ord_itm.item_total }} грн.</td>
+					</tr>
+        	{% endfor %}
+        		 <tr>
+	        		<td></td>
+	        		<td>Итого</td>
+	        		<td><strong>{{ item.items.cart_total }} грн.</strong></td>
+	        	</tr>
+        </table>
+   		<h3>Заказчик</h3>
+   		 <p>Имя: {{ item.first_name }}</p>
+   		 <p>Фамилия: {{ item.last_name }}</p>
+   		 <p>Телефон: {{ item.phone }}</p>
+   		 <h3>Тип доставки</h3>
+   		 <p>{% if item.buying_type == 'self' %} Самовывоз {% else %}Доставка{% endif %}</p>
+   		 <p>{% if item.buying_type == 'delivery' %} {{ item.address }}{% endif %}</p>
+   		 <h3>Комментарии к заказу</h3>
+   		 <p>{{ item.comments }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}

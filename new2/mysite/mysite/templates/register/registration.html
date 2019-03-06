@@ -1,0 +1,23 @@
+{% extends 'part1/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<title>
+{%block title%}
+Регистрация
+{%endblock title%}
+</title>
+
+<h3 class='text-center' style="margin-top:45px;padding:25px;">Регистрация нового пользователя</h3>
+<center>
+<div class='col-sm-8 col-sm-offset-2'>
+
+<form action='' method="POST">
+	{% csrf_token %}
+    {{form|crispy}}
+	<input type='submit' class='btn btn-outline-danger btn-block' value='Зарегистрироваться' style="padding:10px;margin-bottom:55px;">
+</form>
+</div>
+</center>
+{% endblock content %}

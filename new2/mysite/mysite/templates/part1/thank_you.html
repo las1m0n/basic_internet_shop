@@ -1,0 +1,15 @@
+{% extends 'part1/index.html' %}
+
+
+{% block content %}
+<title>
+{%block title%}
+Операция прошла успешно
+{%endblock title%}
+</title>
+<div class='col-sm-16 col-sm-offset-2'>
+	<h3 class='text-center' style="margin-top:20px;">Спасибо за Ваш заказ! Он принят в обработку. В ближайшее время менеджер с Вами свяжется</h3>
+	<p class='text-center'><a href='/'><button class="btn btn-outline-danger btn-lg">Вернуться в покупкам</button></a></p>
+</div>
+
+{% endblock content %}

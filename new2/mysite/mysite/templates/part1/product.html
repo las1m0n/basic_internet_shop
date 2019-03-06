@@ -1,0 +1,85 @@
+{% extends 'part1/index.html' %}
+{% load static %}
+{% block content %}
+
+<title>
+{%block title%}
+{{product.title}}
+{%endblock title%}
+</title>
+
+<div class="col-sn-4">
+    <center><p><img src={{product.image.url}} style='width:50%;height:100%;;'></p></center>
+
+    <div id="favourite-section" style="text-align:right;">
+        {% if is_favourite %}
+        <a href="{% url 'favourite_product' id=product.id %}">
+            <i class="fas fa-star fa-lg"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'favourite_product' id=product.id %}">
+            <i class="far fa-star fa-lg"></i>
+        </a>
+        {% endif %}
+    </div>
+    <div id="libra-section" style="text-align:right;margin-top:10px;">
+        {% if is_comparable %}
+        <a href="{% url 'compare_product' id=product.id %}">
+            <i class="fas fa-check fa-lg"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'compare_product' id=product.id %}">
+            <i class="fas fa-book-reader fa-lg"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
+<div class="col-sn-8">
+<h3 class="text-center"><strong>{{product.title}}</strong></h3>
+    <center><p class="text-center">{{product.description|safe}}</p></center>
+    <hr>
+    <center><p>Цена: <strong>{{product.price}}</strong></p></center>
+    <hr>
+    {% if request.user.is_authenticated %}
+    <center><a href='#' class="add_to_cart" data-slug="{{product.slug}}">
+    <button class="btn btn-outline-danger btn-lg">Добавить в корзину</button></a></center>
+    {% else %}
+    <p class="text-center" style="padding:15px;">Заказывать товар могут лишь авторизированные пользователи. Пожалуйста,
+        <a href="{% url 'login' %}">войдите</a> или  <a href="{% url 'registration' %}">зарегистрируйтесь</a>.
+    </p>
+    {% endif %}
+</div>
+<hr>
+<h3 class="text-center"><strong>С этим товаром так-же
+покупают...</strong></h3>
+<div class="card-deck">
+    {% for items in related %}
+  <div class="card">
+      <h5 class="text-center">{{items.title}}</h5>
+      <p class="text-center"><img src={{items.image.url}} style='width:50%;height:100%;;'></p>
+      <center><p class="text-center"><strong>{{items.description|safe}}</strong></p></center>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script src='{% static "js/jquery.min.js" %}'></script>
+<script>
+    $(document).ready(function(){
+        $('.add_to_cart').on('click', function(e){
+            e.preventDefault()
+            slug = $(this).attr('data-slug')
+            data = {
+                slug: slug
+            }
+            $.ajax({
+                type: "GET",
+                url: '{% url "add_to_cart" %}',
+                data: data,
+                success: function(data){
+                    $("#cart_count").html(data.cart_total)
+                }
+            })
+        })
+    })
+</script>
+{% endblock content %}
