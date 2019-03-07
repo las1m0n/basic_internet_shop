@@ -18,7 +18,7 @@ def search_view(request):
 
 
 def favourite_list_view(request):
-    favourite_list = request.user.favourite.filter(Q(favourite=True))
+    favourite_list = request.user.favourite.all()
     context = {
         'favourite_list': favourite_list
     }
@@ -37,7 +37,7 @@ def favourite_product(request, id):
 def account_view(request):
     categories = Category.objects.all()
     order = Order.objects.filter(user=request.user).order_by('-id')
-    compare_list = request.user.compare.filter(Q(compare=True))
+    compare_list = request.user.compare.all()
     h = []
     for fav in compare_list:
         if fav.category in h:
